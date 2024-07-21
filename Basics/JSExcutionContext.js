@@ -1,0 +1,5 @@
+/* 
+Global Execution context 
+Function EC
+Eval EC
+*/
