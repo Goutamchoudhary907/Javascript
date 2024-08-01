@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>focus this iframe and press any key to get the current timestamp for the
+        keypress event.</p>
+        <p >timeStamp: <span id="time">-</span></p>
+
+        <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/defaultPrevented" id="link1">Visit link 1</a></p>
+        <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/defaultPrevented" id="link2">Try to visit</a></p>
+        <p id="log"></p>
+
+
+        <div id="parent">
+            Click parent
+            <div id="child">Click child</div>
+          </div>
+          
+          <button id="reset">Reset</button>
+          <pre id="output"></pre>
+
+
+          <p>Move your mouse to see its position.</p>
+          <p id="screen-log"></p>
+
+          <p>Click anywhere to test the <code>altKey</code> property.</p>
+          <p id="alt"></p>
+
+
+</body>
+
+<script>
+    // Time stamp 
+    function getTime(e){
+        const time=document.getElementById("time");
+        time.firstChild.nodeValue=e.timeStamp;
+    }
+    document.body.addEventListener("keypress",getTime)
+
+    // Prevent default 
+    function stopLink(e){
+        e.preventDefault();
+        alert("You can't visit link ")
+    }
+    const a=document.getElementById("link2");
+    a.addEventListener("click",stopLink);
+
+
+// Target
+const ul=document.createElement("ul");
+document.body.appendChild(ul);
+
+const li1=document.createElement("li")
+li1.innerHTML="List 1"
+const li2=document.createElement("li")
+li2.innerHTML="List 2"
+ul.appendChild(li1)
+ul.appendChild(li2)
+
+function hide(e){
+    e.target.style.visibility= "hidden";
+}
+ul.addEventListener("click",hide,false);
+
+// current target
+
+const output=document.querySelector("#output");
+const parent=document.querySelector("#parent")
+
+parent.addEventListener("click", (e) =>{
+    const currentTarget=e.currentTarget.getAttribute("id")
+    const target=e.target.getAttribute("id")
+
+    output.textContent= `Current Target: ${currentTarget}\n`;
+    output.textContent += `Target:${target}`
+});
+const reset =document.querySelector("#reset")
+reset.addEventListener("click", ()=> document.location.reload())
+
+
+// screen X/ Screen Y , client X/client Y
+
+let screenLog=document.querySelector("#screen-log")
+document.addEventListener("mousemove",logKey)
+
+function logKey(e){
+    screenLog.innerText= 
+    `Screen X/Y: ${e.screenX} , ${e.screenY}
+     Client X/Y : ${e.clientX}, ${e.clientY} `;
+}
+
+// alt key
+let log=document.querySelector("#alt")
+document.addEventListener("keydown", logKey)
+
+
+function logKey(e){
+    log.textContent= `The alt key is Pressed: ${e.altKey}`;
+    console.log(e.altKey);
+}
+</script>
+</html>

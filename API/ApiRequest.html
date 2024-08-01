@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #212121;color: #fff;">
+    Value	State	Description <br>
+0	UNSENT	Client has been created. open() not called yet. <br>
+1	OPENED	open() has been called. <br>
+2	HEADERS_RECEIVED	send() has been called, and headers and status are <available class="br"></available> <br>
+3	LOADING	Downloading; responseText holds partial <data value="" class="br"></data>  <br>
+4	DONE	The operation is <complete class="br"></complete> <br>
+</body>
+<script>
+    const requestUrl='https://api.github.com/users/goutamchoudhary907'
+        // const requestUrl='https://randomuser.me/api/'
+  const xhr= new XMLHttpRequest();
+  xhr.open('GET', requestUrl) 
+//   console.log(xhr.readyState);               does not track continuesly 
+
+  xhr.onreadystatechange= function(){                            // onreadyStaechange track states continuesly 
+    console.log(xhr.readyState);   
+    
+    if(xhr.readyState===4){
+        // const data= this.responseText
+        // console.log(typeof data);            it is string , response from url come in string datatype
+       const data=JSON.parse(this.responseText)
+        console.log(typeof data);
+        console.log( `Followers ${data.followers}`);
+    }
+  }
+  xhr.send()
+
+
+  // create card of photo and followers from api  
+
+    const seeCard= document.createElement('button')
+    seeCard.textContent="See Card"
+    seeCard.style.height="15px"
+    seeCard.style.width="150px"
+    seeCard.style.padding="15px"
+    seeCard.style.margin="15px"
+
+    document.body.appendChild(seeCard)                                      // create button "See Card" and add it to body 
+ 
+      seeCard.addEventListener('click', function(){                         // Add event listner on see card button 
+        const newxhr=new XMLHttpRequest();
+        newxhr.open('GET',requestUrl)
+
+   newxhr.onreadystatechange= function(){
+    console.log(newxhr.readyState);
+
+        if(newxhr.readyState===4){
+        const data= JSON.parse(this.responseText)
+        console.log(data);
+    const user={                                                                                      // create object with photo and followers
+    //    photo:"https://avatars.githubusercontent.com/u/150544782?v=4" , 
+          photo: data.avatar_url,                      
+          followers: data.followers , 
+          following: data.following
+    };
+     
+    const card= document.createElement("div")                                                        // create div to add object on body
+    card.className= "user-card";
+    card.innerHTML= `
+        <p>Photo:</p>
+       <img src="${user.photo}" alt="Photo">
+       <p> Followers: ${user.followers}</p>
+       <p> Following: ${user.following}</p>
+    `
+    document.body.appendChild(card)
+    console.log(card);
+    }
+}
+newxhr.send()
+      })
+
+</script>
+</html>

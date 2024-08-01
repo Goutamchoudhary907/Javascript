@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #313131;">
+        <button id="orange">Orange</button>
+        <button id="green">Green</button>
+</body>
+<script>
+// Lexical Scoping
+
+function parent(){
+    let username="hitesh"
+
+    function child1(){
+        let secret="my123"
+        console.log("Child1",username);                                  // both child 1 and child 2 have access of username as it is parent property
+    }
+    function child2(){
+        console.log("Child2",username);
+        // console.log(secret);                                          // child 2 does not have access because it is child 1 property
+    }  
+    child1()
+    child2()
+  }
+
+  parent()
+
+  function init() {
+    var name = "Mozilla"; // name is a local variable created by init
+    function displayName() {
+      // displayName() is the inner function, that forms the closure
+      console.log(name); // use variable declared in the parent function
+    }
+    displayName();
+  }
+  init();
+  
+</script>
+<script>
+  // closure (Real world senario)
+
+  //  document.getElementById("orange").onclick= function(){                         instead of doing this every time we make a function for this 
+  //   document.body.style.backgroundColor= "orange"
+  //  }
+  
+  //  document.getElementById("green").onclick= function(){
+  //   document.body.style.backgroundColor= "green"
+  //  }
+
+   function clickHandler(color){                                                       // function for click handling
+    //  document.body.style.backgroundColor= `${color}`                                This doesnt work ; directly execute without button press
+
+    return function(){                                                                  // to chage color while button is pressed we need to return function for this , this is called closure 
+      document.body.style.backgroundColor= `${color}`
+    }
+   }
+
+   document.getElementById('orange').onclick=clickHandler("orange")
+   document.getElementById('green').onclick=clickHandler("green")
+   
+</script>
+</html>

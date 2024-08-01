@@ -19,6 +19,33 @@
    </div>
 </body>
 <script>
-    
-</script>
+    // document.getElementById('owl').onclick=function(){
+    //     alert("Owl clicked")
+    // }
+
+    // document.getElementById('owl').addEventListener('click', function(e) {
+    //     alert("Owl clicked")
+    //     console.log(e);
+    // }, false)
+
+// type, timestamp. defaultPrevented, toElement , target , srcElemtn, currentTarget
+//  clientX, clientY, screenX, screenY
+// altkey , ctrl key, shiftkey, keycode
+
+document.getElementById('images').addEventListener('click', function(e) {
+        console.log("clicked inside the ul");
+    }, false)
+
+document.getElementById('owl').addEventListener('click', function(e) {
+        console.log("owl clicked");
+        e.stopPropagation()                   // this stop propogation only owl print 
+    }, false)                                // event propogation , if both are true then first
+                                            //  print clicked inside ul and then owl clicked  if both false then first owl then ul
+
+ document.getElementById('google').addEventListener('click', function (e){
+    e.preventDefault();                               // stop default behaviour , link not open when clicked 
+    e.stopPropagation()
+    console.log("google clicked");
+ })
+</script> 
 </html>
