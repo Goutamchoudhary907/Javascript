@@ -14,7 +14,7 @@ console.log(str.indexOf('d'));
 const newStr=str.substring(0,3)
 console.log(newStr);
 
-const anotherStr=str.slice(-5,2)           // can use negative idx for start from last 
+const anotherStr=str.slice(-5,12)           // can use negative idx for start from last -5 means(length -5) 12-5 =7 
 console.log(anotherStr);
 
 const str1="     Hello     "

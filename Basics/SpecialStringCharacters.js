@@ -4,7 +4,7 @@ console.log(str);
 
 let s="Gout\fam"
 console.log(s);
-
+console.log();
 console.log("Gout\ram");
 console.log("Stri\tng");
 
